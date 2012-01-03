@@ -20,11 +20,11 @@ The tools are focussed on:
 %prep
 %setup -q
 %{__sed} -e 's/libtstools.a/libtstools.so/' -i Makefile
-%{__sed} -e 's/$(LIB): $(LIB)($(OBJS))/$(LIB): $(OBJS)\n	$(CC) $(CFLAGS) -shared -fPIC $(OBJS) -o $@/' -i Makefile
+%{__sed} -e 's/$(LIB): $(LIB)($(OBJS))/$(LIB): $(OBJS)\n	$(CC) $(CFLAGS) -shared $(OBJS) -o $@/' -i Makefile
 
 %build
 %{__make} -j1 \
-	OPTIMISE_FLAGS="%{rpmcflags}"
+	OPTIMISE_FLAGS="%{rpmcflags} -fPIC"
 
 %install
 rm -rf $RPM_BUILD_ROOT
